@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\kiran\\OneDrive\\Desktop\\voting-dapp\\contracts\\VotingSystem.sol": {
+      "lastModificationDate": 1766217590435,
+      "contentHash": "547b1f1a6bbb380eb1e5d3da3a992475",
+      "sourceName": "contracts/VotingSystem.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "VotingSystem"
+      ]
+    }
+  }
+}

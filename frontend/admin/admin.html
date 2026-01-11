@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+
+  <!-- ADMIN STYLES -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div class="admin-header">
+    <h1>Admin Dashboard</h1>
+    <p>Manage candidates, voters and election lifecycle</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MAIN CONTENT -->
+  <div class="admin-container">
+
+    <!-- CONNECT -->
+    <div class="card">
+      <h2>Wallet Connection</h2>
+      <button id="connect">Connect Wallet</button>
+    </div>
+
+    <!-- ADD CANDIDATE -->
+    <div class="card">
+      <h2>Add Candidate</h2>
+      <input id="cname" placeholder="Candidate Name" />
+      <input id="cparty" placeholder="Party" />
+      <input id="cimg" placeholder="Image URL" />
+      <button id="addCandidate">Add Candidate</button>
+    </div>
+
+    <!-- ADD VOTER -->
+    <div class="card">
+      <h2>Add Voter</h2>
+      <input id="voterAddress" placeholder="Voter Wallet Address" />
+      <button id="addVoter">Add Voter</button>
+    </div>
+
+    <!-- VOTING CONTROL -->
+    <div class="card">
+      <h2>Voting Control</h2>
+      <button id="startVoting">Start Voting</button>
+      <button id="endVoting" class="secondary-btn">End Voting</button>
+    </div>
+
+  </div>
+
+  <!-- ETHERS -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+  <!-- ADMIN LOGIC -->
+  <script type="module" src="./admin.js"></script>
+
+</body>
+</html>

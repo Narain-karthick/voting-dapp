@@ -1,0 +1,121 @@
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: #f9fafb;
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.admin-header {
+  padding: 24px 30px;
+  background: rgba(2, 6, 23, 0.9);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+
+.admin-header p {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+}
+
+/* ===== CONTAINER ===== */
+.admin-container {
+  padding: 40px 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 55px rgba(0,0,0,0.6);
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 18px;
+  border-left: 4px solid #10b981;
+  padding-left: 10px;
+}
+
+/* ===== INPUTS ===== */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+  background: rgba(255,255,255,0.95);
+  color: #020617;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 10px 22px rgba(16,185,129,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(16,185,129,0.6);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* ===== SECONDARY BUTTON ===== */
+.secondary-btn {
+  background: linear-gradient(135deg, #334155, #1e293b);
+  box-shadow: none;
+  margin-top: 10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .admin-container {
+    padding: 20px;
+  }
+}

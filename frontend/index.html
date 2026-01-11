@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blockchain Voting System</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #1f2933, #111827);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      width: 100%;
+      padding: 40px 20px 30px;
+      text-align: center;
+      color: #f9fafb;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: 1px;
+    }
+
+    .header-line {
+      width: 80px;
+      height: 4px;
+      margin: 14px auto;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #10b981, #f59e0b);
+    }
+
+    .header p {
+      margin-top: 6px;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 40px 20px;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      width: 380px;
+      padding: 36px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 25px 45px rgba(0,0,0,0.35);
+      animation: fadeUp 0.8s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== INPUTS ===== */
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.25);
+    }
+
+    /* ===== ROLE SWITCH ===== */
+    .role-switch {
+      position: relative;
+      display: flex;
+      background: #e5e7eb;
+      border-radius: 12px;
+      margin: 18px 0 26px;
+      overflow: hidden;
+    }
+
+    .role-switch button {
+      flex: 1;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      z-index: 2;
+      transition: color 0.3s;
+      color: #374151;
+    }
+
+    .role-switch button.active {
+      color: white;
+    }
+
+    .slider {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      width: 50%;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      transition: transform 0.35s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+
+    .slider.voter {
+      transform: translateX(100%);
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+
+    /* ===== LOGIN BUTTON ===== */
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 10px 25px rgba(16,185,129,0.45);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(16,185,129,0.6);
+    }
+
+    .login-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.85;
+    }
+
+    /* ===== LOADING SPINNER ===== */
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border: 3px solid rgba(255,255,255,0.4);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 420px) {
+      .card {
+        width: 100%;
+      }
+      .header h1 {
+        font-size: 28px;
+      }
+    }
+
+
+
+    /* ===== PAGE DIVIDER ===== */
+.page-divider {
+  width: 100%;
+  /* max-width: 900px; */
+  height: 1px;
+  margin: 25px auto 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+}
+
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>Blockchain Voting System</h1>
+    <div class="header-line"></div>
+    <p>Secure • Transparent • Decentralized</p>
+  </div>
+  <div class="page-divider"></div>
+
+
+  <div class="container">
+    <div class="card">
+
+      <input type="email" id="email" placeholder="Email address">
+      <input type="password" id="password" placeholder="Password">
+
+      <!-- ROLE SWITCH -->
+      <div class="role-switch">
+        <div class="slider" id="slider"></div>
+        <button id="adminBtn" class="active">Admin</button>
+        <button id="voterBtn">Voter</button>
+      </div>
+
+      <button class="login-btn" id="loginBtn">
+        <span id="loginText">Login</span>
+        <div class="spinner" id="spinner"></div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+
+  <!-- ROLE SLIDER + LOADING UI -->
+  <script>
+    const adminBtn = document.getElementById("adminBtn");
+    const voterBtn = document.getElementById("voterBtn");
+    const slider = document.getElementById("slider");
+    const loginBtn = document.getElementById("loginBtn");
+    const spinner = document.getElementById("spinner");
+    const loginText = document.getElementById("loginText");
+
+    adminBtn.onclick = () => {
+      adminBtn.classList.add("active");
+      voterBtn.classList.remove("active");
+      slider.classList.remove("voter");
+    };
+
+    voterBtn.onclick = () => {
+      voterBtn.classList.add("active");
+      adminBtn.classList.remove("active");
+      slider.classList.add("voter");
+    };
+
+    // Show spinner on login click (auth.js handles redirect)
+    loginBtn.addEventListener("click", () => {
+      spinner.style.display = "block";
+      loginText.style.display = "none";
+      loginBtn.disabled = true;
+
+      // Safety reset (if login fails)
+      setTimeout(() => {
+        spinner.style.display = "none";
+        loginText.style.display = "block";
+        loginBtn.disabled = false;
+      }, 4000);
+    });
+  </script>
+
+</body>
+</html>
