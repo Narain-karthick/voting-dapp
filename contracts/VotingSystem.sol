@@ -13,6 +13,9 @@ contract VotingSystem {
     uint public totalVoters;
     uint public totalVotes;
 
+    // NEW: Array to store voter addresses
+    address[] public voterAddresses;
+
     constructor() {
         owner = msg.sender;
     }
@@ -89,14 +92,29 @@ contract VotingSystem {
         emit CandidateRemoved(_id);
     }
 
+    // UPDATED: Now stores address in array
     function addVoter(address _voter) external onlyOwner {
+        require(!voters[_voter].isRegistered, "Voter already registered");
         voters[_voter].isRegistered = true;
+        voterAddresses.push(_voter); // NEW: Store address in array
         totalVoters++;
         emit VoterAdded(_voter);
     }
 
+    // UPDATED: Removes from array too
     function removeVoter(address _voter) external onlyOwner {
+        require(voters[_voter].isRegistered, "Voter not registered");
         delete voters[_voter];
+        
+        // NEW: Remove from array
+        for (uint i = 0; i < voterAddresses.length; i++) {
+            if (voterAddresses[i] == _voter) {
+                voterAddresses[i] = voterAddresses[voterAddresses.length - 1];
+                voterAddresses.pop();
+                break;
+            }
+        }
+        
         totalVoters--;
         emit VoterRemoved(_voter);
     }
@@ -143,5 +161,15 @@ contract VotingSystem {
             }
         }
         return list;
+    }
+
+    // NEW: Function to get all voter addresses
+    function getVoters() external view returns (address[] memory) {
+        return voterAddresses;
+    }
+
+    // NEW: Function to get voter details
+    function getVoterDetails(address _voter) external view returns (bool isRegistered, bool hasVoted) {
+        return (voters[_voter].isRegistered, voters[_voter].hasVoted);
     }
 }

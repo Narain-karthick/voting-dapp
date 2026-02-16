@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Blockchain Voting Admin Dashboard</title>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-
-<script>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Blockchain Voting Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -18,6 +20,7 @@
                         "background-dark": "#030712",
                         "card-dark": "#111827",
                         "sidebar-dark": "#0a0f1d",
+                        "border-dark": "#1f2937",
                     },
                     fontFamily: {
                         display: ["Inter", "sans-serif"],
@@ -29,7 +32,7 @@
             },
         };
     </script>
-<style>
+    <style>
         body { font-family: 'Inter', sans-serif; }
         .glow-green {
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
@@ -42,242 +45,408 @@
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
         }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(16, 185, 129, 0.3);
+            border-radius: 10px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
     </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
-<aside class="w-64 bg-white dark:bg-sidebar-dark border-r border-slate-200 dark:border-slate-800 hidden lg:flex flex-col">
-<div class="p-6">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-<span class="material-icons-round text-xl">token</span>
-</div>
-<h1 class="text-xl font-bold tracking-tight">VOTECHAIN</h1>
-</div>
-</div>
-<nav class="flex-1 px-4 space-y-2 mt-4">
-<a class="sidebar-active flex items-center gap-3 px-4 py-3 text-primary font-medium" href="#">
-<span class="material-icons-round">dashboard</span>
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white dark:bg-sidebar-dark border-r border-slate-200 dark:border-slate-800 hidden lg:flex flex-col">
+        <div class="p-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span class="material-icons-round text-xl">token</span>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight">VOTECHAIN</h1>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <a class="sidebar-active flex items-center gap-3 px-4 py-3 text-primary font-medium" href="#">
+                <span class="material-icons-round">dashboard</span>
                 Overview
             </a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">
-<span class="material-icons-round">groups</span>
+            <a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+                <span class="material-icons-round">groups</span>
                 Candidates
             </a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">
-<span class="material-icons-round">how_to_reg</span>
+            <a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+                <span class="material-icons-round">how_to_reg</span>
                 Voters
             </a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">
-<span class="material-icons-round">event_repeat</span>
+            <a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+                <span class="material-icons-round">event_repeat</span>
                 Voting Phases
             </a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">
-<span class="material-icons-round">settings</span>
+            <a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+                <span class="material-icons-round">settings</span>
                 Settings
             </a>
-</nav>
-<div class="p-4 border-t border-slate-200 dark:border-slate-800">
-<div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4">
-<p class="text-xs text-slate-500 mb-2">Network Status</p>
-<div class="flex items-center gap-2">
-<span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-<span class="text-sm font-medium">Mainnet Online</span>
-</div>
-</div>
-</div>
-</aside>
-<main class="flex-1 flex flex-col min-w-0">
-<header class="h-20 bg-white dark:bg-background-dark border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8">
-<div>
-<h2 class="text-2xl font-bold">Admin Dashboard</h2>
-<p class="text-sm text-slate-500 dark:text-slate-400">Manage candidates, voters and election lifecycle</p>
-</div>
-<div class="flex items-center gap-4">
+        </nav>
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+            <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4">
+                <p class="text-xs text-slate-500 mb-2">Network Status</p>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                    <span class="text-sm font-medium">Mainnet Online</span>
+                </div>
+            </div>
+        </div>
+    </aside>
 
-<!-- CONNECT WALLET-->
-
-<button id="connect" class="flex items-center gap-2 px-6 py-2.5 bg-primary text-white font-semibold rounded-full glow-green hover:opacity-90 transition-all">
-<span class="material-icons-round text-lg">account_balance_wallet</span>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0">
+        <!-- Header -->
+        <header class="h-20 bg-white dark:bg-background-dark border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8">
+            <div>
+                <h2 class="text-2xl font-bold">Admin Dashboard</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Manage candidates, voters and election lifecycle</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="connectWalletBtn" class="flex items-center gap-2 px-6 py-2.5 bg-primary text-white font-semibold rounded-full glow-green hover:opacity-90 transition-all">
+                    <span class="material-icons-round text-lg">account_balance_wallet</span>
                     Connect Wallet
                 </button>
+                <button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+                    <span class="material-icons-round">notifications</span>
+                </button>
+            </div>
+        </header>
 
+        <!-- Dashboard Content -->
+        <div class="p-8 space-y-8 overflow-y-auto">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl">
+                            <span class="material-icons-round">person_search</span>
+                        </div>
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider">TOTAL CANDIDATES</span>
+                    </div>
+                    <div id="totalCandidates" class="text-3xl font-bold">0</div>
+                    <div class="mt-2 text-sm text-slate-500">Registered candidates</div>
+                </div>
+                <div class="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl">
+                            <span class="material-icons-round">how_to_reg</span>
+                        </div>
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider">REGISTERED VOTERS</span>
+                    </div>
+                    <div id="totalVoters" class="text-3xl font-bold">0</div>
+                    <div class="mt-2 text-sm text-slate-500">Whitelisted addresses</div>
+                </div>
+                <div class="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800 border-l-4 border-l-primary">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-primary/10 text-primary rounded-xl">
+                            <span class="material-icons-round">timer</span>
+                        </div>
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider">ELECTION STATUS</span>
+                    </div>
+                    <div id="electionStatus" class="text-3xl font-bold text-slate-400">Not Started</div>
+                    <div class="mt-2 text-sm text-slate-500">Current phase</div>
+                </div>
+            </div>
 
-<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
-<span class="material-icons-round">notifications</span>
-</button>
-</div>
-</header>
-
-
-<div class="p-8 space-y-8 overflow-y-auto">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-<div class="flex items-center justify-between mb-4">
-<div class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl">
-<span class="material-icons-round">person_search</span>
-</div>
-<span class="text-xs font-semibold text-slate-400 tracking-wider">TOTAL CANDIDATES</span>
-</div>
-<div class="text-3xl font-bold">12</div>
-<div class="mt-2 text-sm text-slate-500">+2 since yesterday</div>
-</div>
-<div class="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-<div class="flex items-center justify-between mb-4">
-<div class="p-3 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl">
-<span class="material-icons-round">how_to_reg</span>
-</div>
-<span class="text-xs font-semibold text-slate-400 tracking-wider">REGISTERED VOTERS</span>
-</div>
-<div class="text-3xl font-bold">1,482</div>
-<div class="mt-2 text-sm text-slate-500">89% verification rate</div>
-</div>
-<div class="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800 border-l-4 border-l-primary">
-<div class="flex items-center justify-between mb-4">
-<div class="p-3 bg-primary/10 text-primary rounded-xl">
-<span class="material-icons-round">timer</span>
-</div>
-<span class="text-xs font-semibold text-slate-400 tracking-wider">ELECTION STATUS</span>
-</div>
-<div class="text-3xl font-bold text-primary">Live Phase</div>
-<div class="mt-2 text-sm text-slate-500">Ends in 04:22:10</div>
-</div>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-<div class="bg-white dark:bg-card-dark rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-1.5 h-6 bg-primary rounded-full"></div>
-<h3 class="font-bold text-lg">Candidate Management</h3>
-</div>
-
-
-<!-- view all in Candidate -->
-<button class="text-primary hover:underline text-sm font-medium">View all</button>
-</div>
-<div class="p-8 flex flex-col items-center justify-center text-center space-y-4">
-<div class="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center text-slate-400 mb-2">
-<span class="material-icons-round text-3xl">person_add</span>
-</div>
-<div>
-<h4 class="font-semibold text-lg">Manage Candidate Roster</h4>
-<p class="text-slate-500 dark:text-slate-400 max-w-sm mt-1">Add new candidates with their photos, manifestos, and party details for the upcoming blockchain election.</p>
-</div>
-
-<!-- Add candidate -->
-<button class="mt-4 px-8 py-3 bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold rounded-xl transition-all flex items-center gap-2">
-<span class="material-icons-round">add</span>
+            <!-- Management Sections -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Candidate Management -->
+                <div class="bg-white dark:bg-card-dark rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                    <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-1.5 h-6 bg-primary rounded-full"></div>
+                            <h3 class="font-bold text-lg">Candidate Management</h3>
+                        </div>
+                        <button class="text-primary hover:underline text-sm font-medium">View all</button>
+                    </div>
+                    <div class="p-8 flex flex-col items-center justify-center text-center space-y-4">
+                        <div class="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center text-slate-400 mb-2">
+                            <span class="material-icons-round text-3xl">person_add</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg">Manage Candidate Roster</h4>
+                            <p class="text-slate-500 dark:text-slate-400 max-w-sm mt-1">Add new candidates with their photos, manifestos, and party details for the upcoming blockchain election.</p>
+                        </div>
+                        <button id="openCandidateBtn" onclick="openCandidatePopup()" class="flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:opacity-90 transition-all" disabled style="opacity: 0.5; cursor: not-allowed;">
+                            <span class="material-icons-round">add_circle</span>
                             Add Candidate
                         </button>
-</div>
-</div>
-<div class="bg-white dark:bg-card-dark rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-1.5 h-6 bg-primary rounded-full"></div>
-<h3 class="font-bold text-lg">Voter Registration</h3>
-</div>
+                    </div>
+                </div>
 
-
-<!-- view all in Voters -->
-<button class="text-primary hover:underline text-sm font-medium">View all</button>
-</div>
-<div class="p-8 flex flex-col items-center justify-center text-center space-y-4">
-<div class="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center text-slate-400 mb-2">
-<span class="material-icons-round text-3xl">verified_user</span>
-</div>
-<div>
-<h4 class="font-semibold text-lg">Whitelisting System</h4>
-<p class="text-slate-500 dark:text-slate-400 max-w-sm mt-1">Register voter wallet addresses to authorize them for voting. Each address is mapped to a unique ID.</p>
-</div>
-
-
-<!--  Add voters  -->
-<button class="mt-4 px-8 py-3 bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold rounded-xl transition-all flex items-center gap-2">
-<span class="material-icons-round">how_to_reg</span>
-                            Register Voter
+                <!-- Voter Management -->
+                <div class="bg-white dark:bg-card-dark rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                    <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-1.5 h-6 bg-primary rounded-full"></div>
+                            <h3 class="font-bold text-lg">Voter Management</h3>
+                        </div>
+                        <button class="text-primary hover:underline text-sm font-medium">View all</button>
+                    </div>
+                    <div class="p-8 flex flex-col items-center justify-center text-center space-y-4">
+                        <div class="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center text-slate-400 mb-2">
+                            <span class="material-icons-round text-3xl">how_to_reg</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg">Manage Voter Registry</h4>
+                            <p class="text-slate-500 dark:text-slate-400 max-w-sm mt-1">Add, verify, and manage voter wallet addresses for the blockchain-based voting system.</p>
+                        </div>
+                        <button id="openVoterBtn" onclick="openVoterPopup()" class="flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:opacity-90 transition-all" disabled style="opacity: 0.5; cursor: not-allowed;">
+                            <span class="material-icons-round">manage_accounts</span>
+                            Manage Voters
                         </button>
-</div>
-</div>
-</div>
-<div class="bg-white dark:bg-card-dark rounded-2xl border border-slate-200 dark:border-slate-800 p-8">
-<div class="flex items-center gap-3 mb-8">
-<div class="w-1.5 h-6 bg-primary rounded-full"></div>
-<h3 class="font-bold text-lg">System Lifecycle Control</h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-<div class="space-y-4">
-<div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
-<p class="text-slate-500 dark:text-slate-400 mb-4 text-sm">Initiate the voting phase globally on the blockchain. Once started, authorized voters can cast their ballots.</p>
-
-
-<!-- Start Voting button -->
-<button class="w-full py-4 bg-primary text-white font-bold rounded-xl glow-green hover:opacity-90 transition-all flex items-center justify-center gap-2">
-<span class="material-icons-round">play_arrow</span>
-                                Start Voting Session
-                            </button>
-</div>
-</div>
-<div class="space-y-4">
-<div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
-<p class="text-slate-500 dark:text-slate-400 mb-4 text-sm">Permanently close the current election and trigger final result tallying across the network nodes.</p>
-
-
-<!-- End Voting -->
-<button class="w-full py-4 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-xl hover:bg-slate-300 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
-<span class="material-icons-round">stop</span>
-                                End Voting Session
-                            </button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<footer class="mt-auto px-8 py-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between text-slate-500 text-xs gap-4">
-<div class="flex items-center gap-4">
-<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> System Healthy</span>
-<span>Version 2.4.0-stable</span>
-<span>Node: US-EAST-1</span>
-</div>
-<div>
-                © 2024 VoteChain Technologies. Secure Blockchain Governance.
+                    </div>
+                </div>
             </div>
-</footer>
-</main>
-<div class="fixed inset-0 modal-overlay z-50 flex items-center justify-center p-4 hidden" id="addCandidateModal">
-<div class="bg-white dark:bg-card-dark w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
-<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-<h3 class="font-bold text-xl">Add New Candidate</h3>
-<button class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
-<span class="material-icons-round">close</span>
-</button>
-</div>
-<div class="p-6 space-y-4">
-<div>
-<label class="block text-sm font-medium mb-1.5">Candidate Full Name</label>
-<input class="w-full bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl focus:ring-primary focus:border-primary" placeholder="e.g. Johnathan Smith" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-medium mb-1.5">Party Affiliation</label>
-<input class="w-full bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl focus:ring-primary focus:border-primary" placeholder="e.g. Liberal Democrats" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-medium mb-1.5">Profile Image URL</label>
-<input class="w-full bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl focus:ring-primary focus:border-primary" placeholder="https://image-placeholder.com/profile.png" type="text"/>
-</div>
-<button class="w-full py-4 bg-primary text-white font-bold rounded-xl mt-4 hover:opacity-90">Register Candidate</button>
-</div>
-</div>
-</div>
 
-<button class="fixed bottom-6 right-6 p-3 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-full shadow-lg z-50" onclick="document.documentElement.classList.toggle('dark')">
-<span class="material-icons dark:hidden">dark_mode</span>
-<span class="material-icons hidden dark:block text-primary">light_mode</span>
-</button>
+            <!-- System Lifecycle Control - Full Width -->
+            <div class="bg-white dark:bg-card-dark rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-1.5 h-6 bg-primary rounded-full"></div>
+                    <h3 class="font-bold text-lg">System Lifecycle Control</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Start Voting -->
+                    <div class="p-6 rounded-xl border-2 border-dashed border-slate-700/40 dark:border-slate-700/40">
+                        <p class="text-slate-400 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                            Initiate the voting phase globally on the blockchain. Once started, authorized voters can cast their ballots.
+                        </p>
+                        <button id="startVotingBtn" class="w-full py-3.5 bg-primary text-white font-bold rounded-xl glow-green hover:opacity-90 transition-all flex items-center justify-center gap-2">
+                            <span class="material-icons-round text-lg">play_arrow</span>
+                            Start Voting Session
+                        </button>
+                    </div>
+                    
+                    <!-- End Voting -->
+                    <div class="p-6 rounded-xl border-2 border-dashed border-slate-700/40 dark:border-slate-700/40">
+                        <p class="text-slate-400 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                            Permanently close the current election and trigger final result tallying across the network nodes.
+                        </p>
+                        <button id="endVotingBtn" class="w-full py-3.5 bg-slate-700 dark:bg-slate-700 text-slate-300 dark:text-slate-300 font-bold rounded-xl hover:bg-slate-600 dark:hover:bg-slate-600 transition-all flex items-center justify-center gap-2">
+                            <span class="material-icons-round text-lg">stop</span>
+                            End Voting Session
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-  <!-- ETHERS -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+            <!-- Footer -->
+            <footer class="mt-auto px-8 py-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between text-slate-500 text-xs gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> System Healthy</span>
+                    <span>Version 2.4.0-stable</span>
+                    <span>Node: US-EAST-1</span>
+                </div>
+                <div>
+                    © 2024 VoteChain Technologies. Secure Blockchain Governance.
+                </div>
+            </footer>
+        </div>
+    </main>
 
-  <!-- ADMIN LOGIC -->
-  <script type="module" src="./admin.js"></script>
-</body></html>
+    <!-- Candidate Popup Modal -->
+    <div id="candidatePopup" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 hidden items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-white dark:bg-card-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all transform scale-100">
+            <!-- Modal Header -->
+            <div class="px-6 py-5 border-b border-slate-200 dark:border-border-dark flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-2xl">groups</span>
+                    <h2 class="text-xl font-bold tracking-tight">Manage Candidates</h2>
+                </div>
+                <button onclick="closeCandidatePopup()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 space-y-6">
+                <!-- Search Bar -->
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xl">search</span>
+                    <input class="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-border-dark rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all dark:placeholder-slate-600 text-sm" placeholder="Search candidates by name or party affiliation..." type="text"/>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                    <!-- Candidate List -->
+                    <div class="lg:col-span-3">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Registered Candidates (<span id="candidateCount">0</span>)</h3>
+                        </div>
+                        <div id="candidatesList" class="max-h-[320px] overflow-y-auto custom-scrollbar pr-2 space-y-3">
+                            <!-- Candidates will be loaded here dynamically -->
+                            <div class="text-center py-8 text-slate-500">
+                                Connect wallet to load candidates
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Candidate Form -->
+                    <div class="lg:col-span-2 space-y-4">
+                        <div class="bg-primary/5 border border-primary/20 p-5 rounded-xl">
+                            <h3 class="text-sm font-semibold uppercase tracking-wider text-primary mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-lg">person_add</span>
+                                Add New Candidate
+                            </h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-1.5 uppercase font-medium">Candidate Name</label>
+                                    <input id="candidateName" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-border-dark rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="Enter full name" type="text"/>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-1.5 uppercase font-medium">Party / Affiliation</label>
+                                    <input id="candidateParty" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-border-dark rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="e.g. Independent, Tech Party" type="text"/>
+                                </div>
+                                <button id="addCandidateBtn" class="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-bold text-sm shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">add</span>
+                                    ADD CANDIDATE
+                                </button>
+                                <p class="text-[10px] text-slate-500 leading-relaxed">
+                                    New candidates will be immediately visible on the public voting portal once added to the blockchain registry.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-border-dark flex justify-end">
+                <button onclick="closeCandidatePopup()" class="px-6 py-2 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-semibold text-sm hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voter Popup Modal -->
+    <div id="voterPopup" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 hidden items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-white dark:bg-card-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-border-dark overflow-hidden transition-all transform scale-100">
+            <!-- Modal Header -->
+            <div class="px-6 py-5 border-b border-slate-200 dark:border-border-dark flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="material-icons text-primary">how_to_reg</span>
+                    <h2 class="text-xl font-bold">Manage Voters</h2>
+                </div>
+                <button onclick="closeVoterPopup()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 space-y-8">
+                <!-- Search Bar -->
+                <div class="relative">
+                    <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+                    <input class="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-border-dark rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all dark:placeholder-slate-600" placeholder="Find voter by wallet address (0x...)" type="text"/>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    <!-- Voter List -->
+                    <div class="lg:col-span-3">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Registered Voters (<span id="voterCount">0</span>)</h3>
+                        </div>
+                        <div id="votersList" class="max-h-[320px] overflow-y-auto custom-scrollbar pr-2 space-y-3">
+                            <!-- Voters info -->
+                            <div class="text-center py-12 text-slate-400">
+                                <span class="material-icons text-5xl mb-4">how_to_reg</span>
+                                <p class="text-sm">Voter addresses are stored on the blockchain</p>
+                                <p class="text-xs mt-2 text-slate-500">Total registered: <span id="voterCountDisplay" class="text-primary font-bold">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Voter Form -->
+                    <div class="lg:col-span-2 space-y-4">
+                        <div class="bg-primary/5 border border-primary/20 p-5 rounded-xl">
+                            <h3 class="text-sm font-semibold uppercase tracking-wider text-primary mb-4 flex items-center gap-2">
+                                <span class="material-icons text-lg">person_add</span>
+                                Add Voter
+                            </h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-1.5 uppercase font-medium">Wallet Address</label>
+                                    <input id="voterAddress" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-border-dark rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm font-mono" placeholder="0x..." type="text"/>
+                                </div>
+                                <button id="addVoterBtn" class="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-bold text-sm shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                                    <span class="material-icons text-lg">add</span>
+                                    ADD VOTER
+                                </button>
+                                <p class="text-[10px] text-slate-500 leading-relaxed">
+                                    Adding a voter will whitelist their address for the current active election cycle on the blockchain.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-border-dark flex justify-end">
+                <button onclick="closeVoterPopup()" class="px-6 py-2 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-semibold text-sm hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle Button -->
+    <button class="fixed bottom-6 right-6 p-3 bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-full shadow-lg z-50" onclick="document.documentElement.classList.toggle('dark')">
+        <span class="material-icons dark:hidden">dark_mode</span>
+        <span class="material-icons hidden dark:block text-primary">light_mode</span>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Set dark mode by default
+        document.documentElement.classList.add('dark');
+
+        // Candidate Popup Functions
+        function openCandidatePopup() {
+            const popup = document.getElementById("candidatePopup");
+            popup.classList.remove("hidden");
+            popup.classList.add("flex");
+        }
+
+        function closeCandidatePopup() {
+            const popup = document.getElementById("candidatePopup");
+            popup.classList.add("hidden");
+            popup.classList.remove("flex");
+        }
+
+        // Voter Popup Functions
+        function openVoterPopup() {
+            const popup = document.getElementById("voterPopup");
+            popup.classList.remove("hidden");
+            popup.classList.add("flex");
+        }
+
+        function closeVoterPopup() {
+            const popup = document.getElementById("voterPopup");
+            popup.classList.add("hidden");
+            popup.classList.remove("flex");
+        }
+    </script>
+
+    <!-- ETHERS.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+    <!-- ADMIN BLOCKCHAIN LOGIC -->
+    <script type="module" src="./admin.js"></script>
+
+</body>
+</html>
