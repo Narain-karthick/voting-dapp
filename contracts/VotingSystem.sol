@@ -173,3 +173,5 @@ contract VotingSystem {
         return (voters[_voter].isRegistered, voters[_voter].hasVoted);
     }
 }
+
+

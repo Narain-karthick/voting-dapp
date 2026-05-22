@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voter Dashboard - Main Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#10b77f",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#030712",
+                        "surface-dark": "#0f172a",
+                        "border-primary": "#10b77f33",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 183, 127, 0.1);
+        }
+        .candidate-card:hover {
+            box-shadow: 0 0 20px rgba(16, 183, 127, 0.15);
+            border-color: rgba(16, 183, 127, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-72 flex-shrink-0 border-r border-border-primary bg-slate-950/50 backdrop-blur-xl flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">account_balance_wallet</span>
+</div>
+<div>
+<h1 class="text-lg font-bold leading-none">VotaBlock</h1>
+<p class="text-xs text-primary font-medium mt-1">Blockchain Voting</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-medium">Candidates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">how_to_vote</span>
+<span class="font-medium">My Vote</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-medium">Results</span>
+</a>
+<div class="pt-10 pb-4 text-[10px] uppercase tracking-widest text-slate-500 font-bold px-4">System</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-border-primary">
+<div class="glass-panel p-4 rounded-xl flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-800" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBamlMVRGmVqnO9nJ2nrdZOb-jCOs5UQZZinrUL3y8_Io9LKTFrPW5OC2PpMquZu4KQX7m_CXNh-itr7xRtzkR4GcO0rNUgiZCMrp0Q44U62W7e8kXNOKrJqkHMohafJDrmnqF-u1x-CoI-Qfg6gBFiZckY5_ktQqzjCE4TpZwHUH543n24y84vhW8B68_MP0jWvrmA5g5BauAW4sC4qClQnsSgnMy-e4Zr_SygEVYMkxB8NW7h36Ck0lUcsjntWw-cjJo7uIAVDIYq')"></div>
+<div class="overflow-hidden">
+<p class="text-sm font-semibold truncate">Alex Sterling</p>
+<p class="text-[10px] text-slate-500 truncate">0x71C...4f92</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Header -->
+<header class="h-20 border-b border-border-primary flex items-center justify-between px-8 bg-slate-950/30 backdrop-blur-md shrink-0">
+<h2 class="text-xl font-bold">Voter Dashboard</h2>
+<div class="flex items-center gap-4">
+<button class="bg-primary hover:bg-primary/90 text-background-dark font-bold py-2 px-6 rounded-full flex items-center gap-2 transition-all" id="connectWalletBtn">
+<span class="material-symbols-outlined text-xl">wallet</span>
+<span>Connect Wallet</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-border-primary flex items-center justify-center hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8">
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Card 1: Voting Status -->
+  <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group" id="votingStatusCard">
+    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+      <span class="material-symbols-outlined text-6xl">sensors</span>
+    </div>
+    <p class="text-slate-400 text-sm font-medium">Voting Status</p>
+    <div class="flex items-end gap-2 mt-2">
+      <h3 class="text-3xl font-bold">Live</h3>
+      <span class="text-primary text-sm font-bold mb-1 flex items-center">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse mr-2"></span>
+        Active Now
+      </span>
+    </div>
+  </div>
+<div class="glass-panel p-6 rounded-2xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">verified_user</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Your Status</p>
+<div class="flex items-end gap-2 mt-2">
+<h3 class="text-3xl font-bold">Eligible</h3>
+<span class="text-primary text-sm font-bold mb-1 flex items-center">
+                                Verified ID
+                            </span>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-2xl relative overflow-hidden group border-l-4 border-l-primary">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">person_search</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Total Candidates</p>
+<div class="flex items-end gap-2 mt-2">
+<h3 class="text-3xl font-bold">42</h3>
+<span class="text-slate-500 text-sm font-medium mb-1">In 5 Categories</span>
+</div>
+</div>
+</div>
+<!-- Search & Filter -->
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+<input class="w-full bg-slate-900 border-border-primary rounded-xl pl-12 pr-4 py-3 focus:ring-primary focus:border-primary text-slate-100 placeholder:text-slate-600" placeholder="Search candidates by name or ID..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto">
+<button class="px-5 py-2.5 rounded-full bg-primary text-background-dark font-bold text-sm whitespace-nowrap">All Parties</button>
+<button class="px-5 py-2.5 rounded-full bg-slate-900 border border-border-primary text-slate-300 hover:text-white font-medium text-sm whitespace-nowrap">Progressive</button>
+<button class="px-5 py-2.5 rounded-full bg-slate-900 border border-border-primary text-slate-300 hover:text-white font-medium text-sm whitespace-nowrap">Conservative</button>
+<button class="px-5 py-2.5 rounded-full bg-slate-900 border border-border-primary text-slate-300 hover:text-white font-medium text-sm whitespace-nowrap">Libertarian</button>
+</div>
+</div>
+<!-- Candidate Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="candidateList">
+<!-- Candidate Card 1 -->
+<div class="candidate-card glass-panel rounded-2xl p-5 transition-all flex flex-col">
+<div class="h-48 rounded-xl bg-slate-800 mb-4 overflow-hidden bg-cover bg-center" data-alt="Candidate portrait photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVkf7wWBcbSaU33kjUTSD1t5FtieaI07-UI57iftcbtNCSDPLHCCfinhjLDTB-y8OSQdw5ZiXidveTYAA1PdM9mhm0HrHiyrNFDHIGn9Kp2CIQ-8vrqCvDDaYRaRbx_RFCNaNJDwtMHFVJRUwLfVLwDerWRiRDghiNjrm_9Q-5-iGR_6x-NslfyKjyOajyb0h64sEgj4M2LDgw-rHGmiLrop1lluIn89D-8wKGi8Lxq61SesDxc83uo-mtiXhbNpc7MZjPq3_zS7T7')"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h4 class="text-lg font-bold">Jordan Hayes</h4>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">ID: #8821</span>
+</div>
+<p class="text-slate-400 text-sm mb-4">Focusing on decentralized infrastructure and educational reform for all citizens.</p>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+<span class="text-xs text-slate-300 font-medium">Progressive Alliance</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary/10 border border-primary/20 hover:bg-primary hover:text-background-dark text-primary font-bold rounded-xl transition-all">Vote Now</button>
+</div>
+<!-- Candidate Card 2 -->
+<div class="candidate-card glass-panel rounded-2xl p-5 transition-all flex flex-col">
+<div class="h-48 rounded-xl bg-slate-800 mb-4 overflow-hidden bg-cover bg-center" data-alt="Candidate portrait photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA-nG4cHwcpvIVoEgGEqElILS5y1BZnHnvVWpb5MafaeCTzn0lXo-HM3klxz0EGHRmwhAqNVPbEMwpfEjPCXMfIPQIi-1B9ZvxHktOY4rsEfRaM0nYAoEZlvJ36NG_RXomzqdOlNgoj93OiIXkXXlusiHsBwUO7XstpqdKe0BC4TlxZNfsvtndE9tJN1L7_ay4uXmOpmneW_QvXzzQHR9wE4Bhl_KlVKlpr6kjVVCnc01490pW8bcOp2Y9NqulMSUIbRIQ6DBM2gc2a')"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h4 class="text-lg font-bold">Elena Vance</h4>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">ID: #1204</span>
+</div>
+<p class="text-slate-400 text-sm mb-4">Economic stability through smart-contract based automation and tax transparency.</p>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-red-500"></span>
+<span class="text-xs text-slate-300 font-medium">Unity Party</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary/10 border border-primary/20 hover:bg-primary hover:text-background-dark text-primary font-bold rounded-xl transition-all">Vote Now</button>
+</div>
+<!-- Candidate Card 3 -->
+<div class="candidate-card glass-panel rounded-2xl p-5 transition-all flex flex-col">
+<div class="h-48 rounded-xl bg-slate-800 mb-4 overflow-hidden bg-cover bg-center" data-alt="Candidate portrait photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBi9h6zmOZ1VBFTAXtRJP7zMCfpnc_FQQbGaKubuMJlGcbR130Gd8Yk4NUknlXf5OlWtuACmfxgWVsZVdmHhBHFrGH2tsj6-ZaJh4bZqPYQBNx1tMiMWPKYhu2Ok2Qws9p5nCAlvYeAE1ecQXSiXYaZMj2P9VtRmeh70tsxsyl-_-Zfdm01bSHoxEkXpNe013ZtuqBhONVnZtH3zwzEoOP2oRlyyONV5iiavGp9WrMkFqEz9SX5WVOQKeWZqKbGGQ71WJBmmrSWS7uN')"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h4 class="text-lg font-bold">Marcus Thorne</h4>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">ID: #4490</span>
+</div>
+<p class="text-slate-400 text-sm mb-4">Dedicated to environmental preservation and carbon-neutral blockchain protocols.</p>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span class="text-xs text-slate-300 font-medium">Green Tech Coalition</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary/10 border border-primary/20 hover:bg-primary hover:text-background-dark text-primary font-bold rounded-xl transition-all">Vote Now</button>
+</div>
+<!-- Candidate Card 4 -->
+<div class="candidate-card glass-panel rounded-2xl p-5 transition-all flex flex-col">
+<div class="h-48 rounded-xl bg-slate-800 mb-4 overflow-hidden bg-cover bg-center" data-alt="Candidate portrait photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIcT4XozQ_uypECQlJ213XJSi5NeAI9sLAkx7rmEv92SDuwHrS54V5ehucAjZ-PvGn-bL7_De557Ad4bX4vTpvzhTjgQpn9gL-S8Lds-1ubOEyrXl_vtrtZooA6h11YJOBNQ7jqLcybz6oQd4FwYjtIsZAzngEJexuFKRWX0jnHs4dtaQDfnpV_oi8rfYgt5-7FfzbLZZeySppIj6KEoXyaAJ7tSrk7AdMrSvnedJNvaYuJdwnT7_8v4upAQ9E-7zOdWioRR1RXKMy')"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h4 class="text-lg font-bold">Sarah Chen</h4>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">ID: #3312</span>
+</div>
+<p class="text-slate-400 text-sm mb-4">Universal Basic Income through DAO distribution models and local commerce.</p>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-purple-500"></span>
+<span class="text-xs text-slate-300 font-medium">Digital Nomads</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary/10 border border-primary/20 hover:bg-primary hover:text-background-dark text-primary font-bold rounded-xl transition-all">Vote Now</button>
+</div>
+<!-- Candidate Card 5 -->
+<div class="candidate-card glass-panel rounded-2xl p-5 transition-all flex flex-col">
+<div class="h-48 rounded-xl bg-slate-800 mb-4 overflow-hidden bg-cover bg-center" data-alt="Candidate portrait photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9M5NJ7lRMxhfCVzHHtcoE63AL79Ai3X8XUnQ5t2MsURmzcLHwyRonkw1lm6vMRjXUvE91iZX_WAgXQhztJio5wWWo-Y_0xq0zU3ysq-ngY4k1cvgCZnehUr3z3Ux1fMqF9BG6Y-0xT2a7VHnKONKethbc75N-M4sOU9UlYcu9f8lwCN5Y1kV76JrcUnCvKKBO-KtgnYZ8saGIk6acfGxztYpDM04J-0Aq4kaPaNutSR_2QqPqAKIV1sgFT3wP7cDLrW8Xvwo4nwJI')"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h4 class="text-lg font-bold">Arthur Knight</h4>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">ID: #7710</span>
+</div>
+<p class="text-slate-400 text-sm mb-4">Revitalizing urban centers through peer-to-peer energy sharing networks.</p>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+<span class="text-xs text-slate-300 font-medium">Independent Alliance</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary/10 border border-primary/20 hover:bg-primary hover:text-background-dark text-primary font-bold rounded-xl transition-all">Vote Now</button>
+</div>
+<!-- Candidate Card 6 -->
+<div class="candidate-card glass-panel rounded-2xl p-5 transition-all flex flex-col">
+<div class="h-48 rounded-xl bg-slate-800 mb-4 overflow-hidden bg-cover bg-center" data-alt="Candidate portrait photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD1GaKEl2YcepIH2WZsCp2C73_HKUhOyvmcucuDFH6LxcKU_0vYk2BhnMB9QCLfWV-0vjgmhDuh7BuomYK0qHZGKIAa-3n9c5k8mSoBjfOC5aSNtZCsj9ckouIeJ0TXXHkm4teGwSbBUfnI8YHnk9w4lr9WNlilhB_9PBf21b2eh8yQvuQC3XBiiqy_b481Z0UnX5oEnB_QuVYsnxfm18Ux8lDJDXhNXjkjIo0ONjJiuQN76eFDZ1JD0Y7IW6uZcWhSXyfFtdK1NsMy')"></div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-2">
+<h4 class="text-lg font-bold">Maya Rodriguez</h4>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">ID: #5521</span>
+</div>
+<p class="text-slate-400 text-sm mb-4">Focusing on youth engagement and digital literacy across all generations.</p>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+<span class="text-xs text-slate-300 font-medium">Future Forward</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary/10 border border-primary/20 hover:bg-primary hover:text-background-dark text-primary font-bold rounded-xl transition-all">Vote Now</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script type="module" src="voter.js"></script>
+
+
+</body></html>

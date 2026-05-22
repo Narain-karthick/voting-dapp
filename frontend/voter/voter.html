@@ -1,18 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html class="dark" lang="en">
 <head>
-  <title>Vote</title>
-  <link rel="stylesheet" href="voter.css">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Voter Dashboard - Blockchain Voting</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#10b77f",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#030712",
+                        "surface-dark": "#0f172a",
+                        "border-primary": "#10b77f33",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 183, 127, 0.1);
+        }
+        .candidate-card:hover {
+            box-shadow: 0 0 20px rgba(16, 183, 127, 0.15);
+            border-color: rgba(16, 183, 127, 0.4);
+        }
+    </style>
 </head>
-<body>
-<h1>Vote Now</h1>
 
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-<script type="module" src="voter.js"></script>
-
-<button id="connect">Connect Wallet</button>
-<div id="candidates"></div>
-
-<script type="module" src="voter.js"></script>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- Sidebar -->
+        <aside class="w-72 flex-shrink-0 border-r border-border-primary bg-slate-950/50 backdrop-blur-xl flex flex-col">
+            <!-- Logo -->
+            <div class="p-6 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-background-dark">
+                    <span class="material-symbols-outlined font-bold">account_balance_wallet</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold leading-none">VotaBlock</h1>
+                    <p class="text-xs text-primary font-medium mt-1">Blockchain Voting</p>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="flex-1 px-4 py-6 space-y-2">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary group" href="#">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all" href="#">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span class="font-medium">Candidates</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all" href="#">
+                    <span class="material-symbols-outlined">how_to_vote</span>
+                    <span class="font-medium">My Vote</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all" href="#">
+                    <span class="material-symbols-outlined">bar_chart</span>
+                    <span class="font-medium">Results</span>
+                </a>
+                
+                <div class="pt-10 pb-4 text-[10px] uppercase tracking-widest text-slate-500 font-bold px-4">System</div>
+                
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </nav>
+            
+            <!-- User Profile (Placeholder) -->
+            <div class="p-4 border-t border-border-primary">
+                <div class="glass-panel p-4 rounded-xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">person</span>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-sm font-semibold truncate">Voter</p>
+                        <p class="text-[10px] text-slate-500 truncate">Connect wallet</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Header -->
+            <header class="h-20 border-b border-border-primary flex items-center justify-between px-8 bg-slate-950/30 backdrop-blur-md shrink-0">
+                <h2 class="text-xl font-bold">Voter Dashboard</h2>
+                <div class="flex items-center gap-4">
+                    <!-- Connect Wallet Button -->
+                    <button class="bg-primary hover:bg-primary/90 text-background-dark font-bold py-2 px-6 rounded-full flex items-center gap-2 transition-all" id="connectWalletBtn">
+                        <span class="material-symbols-outlined text-xl">wallet</span>
+                        <span>Connect Wallet</span>
+                    </button>
+                    
+                    <!-- Notifications -->
+                    <button class="w-10 h-10 rounded-full border border-border-primary flex items-center justify-center hover:bg-slate-800 transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-8 space-y-8">
+                
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1: Voting Status -->
+                    <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <span class="material-symbols-outlined text-6xl">sensors</span>
+                        </div>
+                        <p class="text-slate-400 text-sm font-medium">Voting Status</p>
+                        <div class="flex items-end gap-2 mt-2">
+                            <h3 class="text-3xl font-bold text-slate-500" id="votingStatusText">Unknown</h3>
+                            <span class="voting-status-badge text-slate-500 text-sm font-bold mb-1 flex items-center">
+                                <span class="w-2 h-2 rounded-full bg-slate-500 mr-2"></span>
+                                Connect Wallet
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2: Candidates Count -->
+                    <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <span class="material-symbols-outlined text-6xl">groups</span>
+                        </div>
+                        <p class="text-slate-400 text-sm font-medium">Candidates Registered</p>
+                        <div class="flex items-end gap-2 mt-2">
+                            <h3 class="text-3xl font-bold" id="candidatesCount">0</h3>
+                            <span class="text-slate-500 text-sm mb-1">Nominees</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3: Your Vote Status -->
+                    <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group border-l-4 border-l-primary">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <span class="material-symbols-outlined text-6xl">how_to_vote</span>
+                        </div>
+                        <p class="text-slate-400 text-sm font-medium">Your Vote</p>
+                        <div class="flex items-end gap-2 mt-2">
+                            <h3 class="text-3xl font-bold text-slate-500" id="yourVoteStatusText">Not Voted</h3>
+                            <span class="text-slate-500 text-sm mb-1">Status</span>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Search & Filter (Optional - Can be used later) -->
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="relative w-full md:w-96">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+                        <input 
+                            class="w-full bg-slate-900 border-border-primary rounded-xl pl-12 pr-4 py-3 focus:ring-primary focus:border-primary text-slate-100 placeholder:text-slate-600" 
+                            placeholder="Search candidates by name or party..." 
+                            type="text"
+                            disabled
+                        />
+                    </div>
+                </div>
+                
+                <!-- Candidate Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="candidateList">
+                    <!-- Candidates will be loaded dynamically from blockchain -->
+                    <div class="col-span-full text-center py-12 text-slate-400">
+                        <span class="material-symbols-outlined text-6xl mb-4 opacity-20">groups</span>
+                        <p class="text-sm">Connect your wallet to view candidates</p>
+                    </div>
+                </div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script type="module" src="voter.js"></script>
 </body>
 </html>
